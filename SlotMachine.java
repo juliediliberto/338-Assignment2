@@ -10,7 +10,7 @@ class SlotMachine {
         //This is the beginning of the slot machine loop
         //PS this is kind of abusing the for loop but its
         //rare so it makes it kind of cool :)
-        for (int bet = getBet(); bet != 0;) {
+        for (int bet = getBet(); bet != 0; bet=getBet()) {
             //do stuff
         }
 
