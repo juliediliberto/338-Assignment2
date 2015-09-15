@@ -18,47 +18,72 @@ public class TripleString {
         //but he wants them to be preinitialized to ""
         this.numPulls = 0;
         this.pullWinnings = new int[this.MAX_PULLS];
+        this.string1 = 0;
+        this.string2 = 0;
+        this.string3 = 0;
     }
 
 
-    private Boolean validString( String str ) {
-        // checks if a string is 'legal' tbh this is a stupid method
-        // but its in the spec. lol
+    private boolean validString(String str)
+    {
+       return (!(str.equalsIgnoreCase("")) && str.length() <= MAX_LEN);
     }
 
 
-    public Boolean setString1( String str ) {
-        if (str.isEmpty()){
-            return false;
-        }
-        this.string1 = str;
-        return true;
+    //Mutator for String1
+    public boolean setString1(String spin)
+    {
+       if (validString(spin))
+       {
+          this.string1=spin;
+          return true;
+       }
+       else
+          return false;
     }
 
-
-    public String getString1() {
-        return this.string1;
+    //Mutator for String2
+    public Boolean setString2(String spin)
+    {
+       if (validString(spin))
+       {
+          this.string2=spin;
+          return true;
+       }
+       else
+          return false;
     }
 
-
-    public Boolean setString2 ( String str ) {
-        // same as above
+    //Mutator for String3
+    public Boolean setString3(String spin)
+    {
+       if (validString(spin))
+       {
+          this.string3=spin;
+          return true;
+       }
+       else
+          return false;
     }
 
-
-    public String getString2 ( String str ) {
-        // same as above
+    //Accessor for String1
+    public String getString1()
+    {
+       return this.string1;
     }
 
-
-    public Boolean setString3 ( String str ) {
-        // same as above
+    //Accessor for String2
+    public String getString2()
+    {
+       return this.string2;
     }
 
-
-    public String getString3 ( String str ) {
-        // same as above
+    //Accessor for String3
+    public String getString3()
+    {
+       return this.string3;
     }
+
 
 
     public Boolean increaseNumPulls () {
@@ -88,11 +113,90 @@ public class TripleString {
     }
 
 
-    public String displayWinnings() {
-        // loop through winnings
-        // then display them as a string
-        // whatever that means.. I think he wants you to display element numPulls
-        // value as a string
+    public static void displayWinnings()
+    {
+       for (int i = 0; i < TripleString.numPulls; i++)
+       {
+          TripleString.totalWinnings = TripleString.totalWinnings +
+             TripleString.pullWinnings[i];
+       }
+       System.out.println ("Congratulations!  You've won a total of $"
+             + TripleString.totalWinnings + ".");
     }
+
+    public int getPayMultiplier()
+    {
+       int payMultiplier = 1;
+       if (getString1() == "cherries")
+          {
+             if (getString2() == "cherries")
+                {
+                   if (getString3() == "cherries")
+                      payMultiplier = 30;
+                   else
+                      payMultiplier = 15;
+                 }
+             else
+                payMultiplier = 5;
+          }
+       else if (getString1() == "BAR" && getString2() == "BAR"
+          && getString3() == "BAR")
+          payMultiplier = 50;
+       else if (getString1() == "7" && getString2() == "7"
+             && getString3() == "7")
+          payMultiplier = 100;
+       return payMultiplier;
+    }
+
+
+    public static void saveWinnings (int winnings)
+    {
+       pullWinnings[TripleString.numPulls-1]=winnings;
+    }
+
+
+
+    public static TripleString pull()
+    {
+    int result1, result2, result3;
+    TripleString thePull = new TripleString();
+
+       //determine first roller
+       result1 = (int)(Math.random() * 100);
+       if (result1 < 51)
+         thePull.setString1("BAR");
+       else if (result1 >=51 && result1 <76)
+        thePull.setString1("cherries");
+       else if (result1 >= 76 && result1 < 87.5)
+          thePull.setString1("space");
+       else
+          thePull.setString1("7");
+
+       //determine second roller
+       result2 = (int)(Math.random() * 100);
+       if (result2 < 51)
+         thePull.setString2("BAR");
+       else if (result2 >=51 && result2 <76)
+        thePull.setString2("cherries");
+       else if (result2 >= 76 && result2 < 87.5)
+          thePull.setString2("space");
+       else
+          thePull.setString2("7");
+
+       //determine third roller
+       result3 = (int)(Math.random() * 100);
+       if (result3 < 51)
+         thePull.setString3("BAR");
+       else if (result3 >=51 && result3 <76)
+        thePull.setString3("cherries");
+       else if (result3 >= 76 && result3 < 87.5)
+          thePull.setString3("space");
+       else
+          thePull.setString3("7");
+
+       return thePull;
+    }
+
+
 
 } // TrippleString
